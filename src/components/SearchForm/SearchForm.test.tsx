@@ -57,11 +57,11 @@ describe("SearchForm", () => {
     expect(searchButton).toHaveClass("Mui-disabled");
   });
 
-  it("should display loading icon button when it is clicked", () => {
+  it("should display loading icon button when it is clicked", async () => {
     const { searchButton, textField } = setup();
     fireEvent.change(textField, { target: { value: "matrix" } });
     fireEvent.click(searchButton);
-    expect(screen.getByRole("progressbar")).toBeInTheDocument();
+    await waitFor(() => expect(screen.getByRole("progressbar")).toBeInTheDocument());
   });
 
   // it("should call the fetch results api and update the data state", async () => {
@@ -80,22 +80,22 @@ describe("SearchForm", () => {
 
 //});
 
-  it("should call the function when called button text to loading icon when it is clicked",  async () => {
-    const { searchButton, textField} = setup();
+  // it("should call the function when called button text to loading icon when it is clicked",  async () => {
+  //   const { searchButton, textField} = setup();
     
-    act(() => {
-      fireEvent.change(textField, {target: {value: "matrix"}});
-      fireEvent.click(searchButton);
-      // jest.mock("../../utils/helper")
-      // mockedAxios.get.mockImplementationOnce(() => Promise.resolve(data));
-      // // const mockGetUserDetails = fetchResults as jest.MockedFunction<
-      // typeof fetchResults>;
-      expect(mockedAxios).toBeCalled()
+  //   await waitFor(() => {
+  //     fireEvent.change(textField, {target: {value: "matrix"}});
+  //     fireEvent.click(searchButton);
+  //     // jest.mock("../../utils/helper")
+  //     // mockedAxios.get.mockImplementationOnce(() => Promise.resolve(data));
+  //     // // const mockGetUserDetails = fetchResults as jest.MockedFunction<
+  //     // typeof fetchResults>;
+  //      expect(mockedAxios).toBeCalled()
 
-    });
+  //   });
   
 
-   })
+  //  })
 
   // it("should render a SearchResult when a search result is retuned", () => {
   //   const {view, searchButton, textField} = setup();

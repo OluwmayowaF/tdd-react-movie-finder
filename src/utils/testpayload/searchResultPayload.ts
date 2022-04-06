@@ -1,4 +1,5 @@
 export const data = {
+  data: {
     Search: [
       {
         "Title": "The Matrix",
@@ -72,6 +73,12 @@ export const data = {
       }
     ],
     totalResults: "129",
-    Response: "True"
+    Response: "True",
+  },
+ 
+    status: 200,
+    statusText: 'Ok',
+    headers: {},
+    config: {},
 
 }
