@@ -8,6 +8,22 @@
     - When user clicks search a table showing the results matching / similar to the user input from the https://omdbapi.com/ API is displayed
 
 
+## Approach 
+- React-testing library and Jest were used to manage tests. 
+As a personal preference when working on the frontend I tend to start with the basic look of the interface before implementing functionality. In accordance with TDD principles I started with a wireframe of what the interface should look like and proceeded as follows 
+1. Wrote a test to ensure the APP interface is rendered 
+2. Added the Code to make the test pass 
+3. Added a test for each component to be displayed on the App Page 
+4. Added Each Component Folder with corresponding test for Visual Elements 
+5. Added Code to ensure each visual test passes 
+6. The SearchForm Component was then updated to include test that affects how users interact with the App 
+    - Ensuring users cannot submit an empty request 
+    - Ensuring that users can actually enter a request
+    - Ensuring that the buttons become enabled when a user enters a value to search 
+    - Ensuring that on button click a preloader is displayed to while results are being fetched 
+    - Ensuring that the Function to fetch the result is actually called
+
+
 ## Other Information 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

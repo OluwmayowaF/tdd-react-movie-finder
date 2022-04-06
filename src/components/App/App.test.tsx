@@ -1,14 +1,23 @@
 import React from 'react';
-import { render, screen } from "@testing-library/react";
 import App from './App';
-import Container from '@mui/material/Container';
-import { ThemeProvider } from '@mui/material/styles';
-import Header from '../Header/Header';
-import SearchForm from '../SearchForm/SearchForm';
+import {render, fireEvent, waitFor, screen} from '@testing-library/react'
+
 
 describe('App', () => {
-
-  it('should render <Header /> Element', () => {
-    render(<App />);
+  const setup = () => {
+    render(<App />)
+    const header: HTMLElement = screen.getByTestId('app-header') as HTMLElement;
+    const searchFrom: HTMLElement = screen.getByTestId('search-form-div') as HTMLElement;
+    return { header, searchFrom }
+  }
+  it('should render  Element', () => {
+    const {header} = setup();
+    expect(header).toBeInTheDocument();
   })
+
+  it('should render <SearchForm /> Element', () => {
+    const {searchFrom} = setup();
+    expect(searchFrom).toBeInTheDocument();
+  })
+
 });
