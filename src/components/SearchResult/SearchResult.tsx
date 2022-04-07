@@ -25,7 +25,7 @@ const SearchResults: FunctionComponent<Props> = () => {
               src={
                 params.row.Poster !== 'N/A'
                   ? params.row.Poster
-                  : process.env.REACT_APP_DEFAULT_IMAGE
+                  : 'https://res.cloudinary.com/oluwamayowaf/image/upload/v1648920638/my_folder/noimage_rpdmwl.png'
               }
               alt={params.row.Title}
             />

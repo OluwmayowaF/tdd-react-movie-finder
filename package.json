@@ -17,7 +17,6 @@
         "@testing-library/jest-dom": "^5.16.3",
         "@testing-library/react": "^12.1.4",
         "@testing-library/user-event": "^13.5.0",
-        "@types/jest": "^27.4.1",
         "@types/node": "^16.11.26",
         "@types/react": "^17.0.43",
         "@types/react-dom": "^17.0.14",
@@ -34,8 +33,7 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "heroku-postbuild": "npm run build"
+        "eject": "react-scripts eject"
     },
     "eslintConfig": {
         "extends": [
@@ -54,5 +52,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "@types/jest": "^27.4.1"
     }
 }
