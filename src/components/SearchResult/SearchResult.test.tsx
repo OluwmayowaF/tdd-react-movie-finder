@@ -15,4 +15,4 @@ describe('SearchResults', () => {
     expect(screen.queryByRole('grid')).not.toBeInTheDocument();
   })
 
-});
+}); 

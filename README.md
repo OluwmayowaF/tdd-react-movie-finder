@@ -1,5 +1,6 @@
 
 # Movie Finder 
+##HOSTED APP: "https://mf-movie-finder.web.app/"
  ## Epic 
  Using https://omdbapi.com/ API, create an app that does search for all titles matching user input and displays UI based on output from said API.
  ## User Story
@@ -22,7 +23,7 @@ As a personal preference when working on the frontend I tend to start with the b
     - Ensuring that users can actually enter a request
     - Ensuring that the buttons become enabled when a user enters a value to search 
     - Ensuring that on button click a preloader is displayed to while results are being fetched 
-7. 
+7. State Management was done with the React Context API
 8. Integration Tests were handled within the App.test.tsx file to include 
     - The results are only displayed when a valid input is submitted 
     - An error message is displayed when the api returns an error eg. Result not found 
@@ -30,7 +31,9 @@ As a personal preference when working on the frontend I tend to start with the b
 
 ## TODO 
 - Improve tests on the pagination elements
-- 
+- Extract secrets into the environment ( InApp because of the hosting platform used )
+- Make the page look better stylewise 
+
 
 ## Other Information 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
