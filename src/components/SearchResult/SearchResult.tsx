@@ -2,28 +2,28 @@ import React, {
   FunctionComponent,
   useState,
   useEffect,
-} from "react";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { useSearchState } from "../../context/SearchContext";
-import { Card, CardContent, Typography, Grid } from "@mui/material";
-import { fetchResults } from "../../utils/helper";
+} from 'react';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { useSearchState } from '../../context/SearchContext';
+import { Card, CardContent, Typography, Grid } from '@mui/material';
+import { fetchResults } from '../../utils/helper';
 import LinearProgress from '@mui/material/LinearProgress';
 
-interface Props {}
+interface Props { }
 
 const SearchResults: FunctionComponent<Props> = () => {
   const columns: GridColDef[] = [
     {
-      field: "Poster",
+      field: 'Poster',
       sortable: false,
       width: 150,
       renderCell: (params) => {
         return (
           <div>
             <img
-              width="40%"
+              width='40%'
               src={
-                params.row.Poster !== "N/A"
+                params.row.Poster !== 'N/A'
                   ? params.row.Poster
                   : process.env.REACT_APP_DEFAULT_IMAGE
               }
@@ -34,13 +34,13 @@ const SearchResults: FunctionComponent<Props> = () => {
         );
       },
     },
-    { field: "Title", sortable: false, headerName: "Title", width: 500 },
-    { field: "Type", sortable: false, headerName: "Type", width: 130 },
+    { field: 'Title', sortable: false, headerName: 'Title', width: 500 },
+    { field: 'Type', sortable: false, headerName: 'Type', width: 130 },
     {
       sortable: false,
-      field: "Year",
-      headerName: "Year",
-      type: "number",
+      field: 'Year',
+      headerName: 'Year',
+      type: 'number',
       width: 130,
     },
   ];
@@ -60,12 +60,15 @@ const SearchResults: FunctionComponent<Props> = () => {
     setErrMessage,
   } = useSearchState();
 
+  /**
+   * Handles page update when pagination buutton is clicked 
+   * @param page 
+   */
   const handlePageChange = async (page: number) => {
     setRowsState((prev: any) => ({ ...prev, page }));
     const getPage = page + 1;
-    const url = `${process.env.REACT_APP_API_BASE_URL}?apikey=${process.env.REACT_APP_API_KEY}&s=${title}&page=${getPage}`;
-    const results = await fetchResults(url);
-    if (results.Response === "True") {
+    const results = await fetchResults(title, getPage);
+    if (results.Response === 'True') {
       setIsLoading(false);
       setResultState({
         isData: true,
@@ -84,6 +87,10 @@ const SearchResults: FunctionComponent<Props> = () => {
     }
   };
 
+  /**
+   * For MUI Pagination API to remain stable when a user enters a new search term, rowcount updated appropriately
+   */
+
   const [rowCountState, setRowCountState] = useState(rowCount || 0);
   useEffect(() => {
     setRowCountState((prevRowCountState: any) =>
@@ -91,8 +98,8 @@ const SearchResults: FunctionComponent<Props> = () => {
     );
   }, [rowCount, setRowCountState]);
   return (
-    <div data-testid="search-result-container">
-      <Grid maxWidth="100%" minWidth="50%" alignItems="center">
+    <div data-testid='search-result-container'>
+      <Grid maxWidth='100%' minWidth='50%' alignItems='center'>
         {resultState?.isData && (
           <DataGrid
             autoHeight
@@ -103,7 +110,7 @@ const SearchResults: FunctionComponent<Props> = () => {
             rowsPerPageOptions={[rowsState.pageSize]}
             rowCount={rowCountState}
             pagination
-            paginationMode="server"
+            paginationMode='server'
             onPageChange={handlePageChange}
             onPageSizeChange={(pageSize) =>
               setRowsState((prev: any) => ({ ...prev, pageSize }))
@@ -115,13 +122,13 @@ const SearchResults: FunctionComponent<Props> = () => {
           />
         )}
         {resultState?.isError && (
-          <Card variant="outlined" sx={{ width: "300px", margin: "auto" }}>
+          <Card data-testid='messsage-card' variant='outlined' sx={{ width: '300px', margin: 'auto' }}>
             <CardContent>
               <Typography
-                textAlign="center"
-                variant="h5"
-                color="red"
-                component="div"
+                textAlign='center'
+                variant='h5'
+                color='red'
+                component='div'
               >
                 {errMessage}
               </Typography>

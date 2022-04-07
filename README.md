@@ -6,23 +6,31 @@
     As a user I want to search for all titles matching my input 
     - When page loads there’s an input for user to enter search criteria 
     - When user clicks search a table showing the results matching / similar to the user input from the https://omdbapi.com/ API is displayed
+    - When search results are greater than 10, user is provided with buttons to manage pagination
 
 
 ## Approach 
-- React-testing library and Jest were used to manage tests. 
+- `React-testing library` and `Jest` were used to manage tests. 
 As a personal preference when working on the frontend I tend to start with the basic look of the interface before implementing functionality. In accordance with TDD principles I started with a wireframe of what the interface should look like and proceeded as follows 
 1. Wrote a test to ensure the APP interface is rendered 
 2. Added the Code to make the test pass 
 3. Added a test for each component to be displayed on the App Page 
 4. Added Each Component Folder with corresponding test for Visual Elements 
 5. Added Code to ensure each visual test passes 
-6. The SearchForm Component was then updated to include test that affects how users interact with the App 
+6. The SearchForm Component was then updated to include test that affects how users interact with some aspects of the App 
     - Ensuring users cannot submit an empty request 
     - Ensuring that users can actually enter a request
     - Ensuring that the buttons become enabled when a user enters a value to search 
     - Ensuring that on button click a preloader is displayed to while results are being fetched 
-    - Ensuring that the Function to fetch the result is actually called
+7. 
+8. Integration Tests were handled within the App.test.tsx file to include 
+    - The results are only displayed when a valid input is submitted 
+    - An error message is displayed when the api returns an error eg. Result not found 
+9. Refactored code where neccesary 
 
+## TODO 
+- Improve tests on the pagination elements
+- 
 
 ## Other Information 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

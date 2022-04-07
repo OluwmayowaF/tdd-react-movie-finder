@@ -2,15 +2,15 @@ import React, {
   FunctionComponent,
   useState,
   FormEventHandler,
-} from "react";
-import Grid from "@mui/material/Grid";
+} from 'react';
+import Grid from '@mui/material/Grid';
 
-import TextField from "@mui/material/TextField";
-import { LoadingButton } from "@mui/lab";
+import TextField from '@mui/material/TextField';
+import { LoadingButton } from '@mui/lab';
 
-import { fetchResults } from "../../utils/helper";
+import { fetchResults } from '../../utils/helper';
 
-import { useSearchState } from "../../context/SearchContext";
+import { useSearchState } from '../../context/SearchContext';
 
 const SearchForm: FunctionComponent = () => {
   const [isInvalidInput, setIsInvalidInput] = useState<boolean>(true);
@@ -26,6 +26,11 @@ const SearchForm: FunctionComponent = () => {
     setRowsState
   } = useSearchState();
 
+  /**
+   * Handles Text validation and state update when user updates input
+   * @param event 
+   */
+
   const handleInputChange: FormEventHandler = (event) => {
     const target = event.target as HTMLInputElement;
     setTitle(target.value);
@@ -36,15 +41,18 @@ const SearchForm: FunctionComponent = () => {
     }
   };
 
+  /**
+   * Handles API call when user submits a valid seaarch query
+   * @param event 
+   */
 
   const handleFormSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
     setIsLoading(true);
     setRowsState({  page: 0,
       pageSize: 10, });
-    const url = `${process.env.REACT_APP_API_BASE_URL}?apikey=${process.env.REACT_APP_API_KEY}&s=${title}`;
-    const results = await fetchResults(url);
-    if (results.Response === "True") {
+    const results = await fetchResults(title);
+    if (results.Response === 'True') {
       setIsLoading(false);
       setResultState({
         isData: true,
@@ -64,27 +72,27 @@ const SearchForm: FunctionComponent = () => {
   };
 
   return (
-    <div data-testid="search-form-div">
-      <Grid container justifyContent="center" alignItems="center">
+    <div data-testid='search-form-div'>
+      <Grid container justifyContent='center' alignItems='center'>
         <TextField
-          label="Enter Movie title"
+          label='Enter Movie title'
           fullWidth
-          size="medium"
-          variant="outlined"
-          id="title"
-          type="text"
+          size='medium'
+          variant='outlined'
+          id='title'
+          type='text'
           value={title}
           onChange={handleInputChange}
-          inputProps={{ "data-testid": "textfield" }}
+          inputProps={{ 'data-testid': 'textfield' }}
         />
         <LoadingButton
-          style={{ marginTop: "10px", marginBottom: "10px" }}
-          size="medium"
+          style={{ marginTop: '10px', marginBottom: '10px' }}
+          size='medium'
           onClick={handleFormSubmit}
           loading={isLoading}
-          variant="contained"
+          variant='contained'
           disabled={isInvalidInput}
-          data-testid="search-button"
+          data-testid='search-button'
         >
           Search
         </LoadingButton>
