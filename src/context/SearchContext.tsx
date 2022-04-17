@@ -1,13 +1,10 @@
-import {createContext, useContext, useState } from 'react';
-import {
-  GridRowModel,
-} from "@mui/x-data-grid";
- 
+import { createContext, useContext, useState } from "react";
+import { GridRowModel } from "@mui/x-data-grid";
+import { fetchResults } from "../utils/helper";
 
-type CountProviderProps = {children: React.ReactNode}
+type CountProviderProps = { children: React.ReactNode };
 
 export const SearchStateContext = createContext<any | undefined>({});
-
 
 export function SearchContextProvider({ children }: CountProviderProps) {
   const [title, setTitle] = useState<string>("");
@@ -17,7 +14,7 @@ export function SearchContextProvider({ children }: CountProviderProps) {
   const [data, setData] = useState<GridRowModel[]>([]);
   const [errMessage, setErrMessage] = useState<string>("");
 
-   interface ResultState {
+  interface ResultState {
     isData: boolean;
     isError: boolean;
   }
@@ -36,30 +33,51 @@ export function SearchContextProvider({ children }: CountProviderProps) {
     page: 0,
     pageSize: 10,
   });
-    let state = {
-      title, 
-      setTitle,
-      isLoading,
-      setIsLoading,
-      rowCount,
-      setRowCount,
-      data,
-      setData,
-      resultState, 
-      setResultState,
-      rowsState, 
-      setRowsState,
-      errMessage, 
-      setErrMessage
-    }
-    return (
-        <SearchStateContext.Provider value={state}>
-            {children}
-        </SearchStateContext.Provider>
+  const loadMovies = async (title: string, page: number = 1): Promise<void> => {
+    const results = await fetchResults(title, page);
+    if (results.Response === "True") {
+      setIsLoading(false);
+      setResultState({
+        isData: true,
+        isError: false,
+      });
 
-    );
+      setData(results.Search);
+      setRowCount(Number(results.totalResults));
+    } else {
+      setResultState({
+        isData: false,
+        isError: true,
+      });
+      setIsLoading(false);
+      setErrMessage(results.Error);
+    }
+  };
+
+  let state = {
+    title,
+    setTitle,
+    isLoading,
+    setIsLoading,
+    rowCount,
+    setRowCount,
+    data,
+    setData,
+    resultState,
+    setResultState,
+    rowsState,
+    setRowsState,
+    errMessage,
+    setErrMessage,
+    loadMovies,
+  };
+  return (
+    <SearchStateContext.Provider value={state}>
+      {children}
+    </SearchStateContext.Provider>
+  );
 }
 
 export function useSearchState() {
-    return useContext(SearchStateContext);
+  return useContext(SearchStateContext);
 }
